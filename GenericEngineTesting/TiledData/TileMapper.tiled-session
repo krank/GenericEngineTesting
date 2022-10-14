@@ -1,0 +1,44 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "map.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Dungeon.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 5.5
+        },
+        "map.tmx": {
+            "scale": 1.9138541666666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 232.2538507592663,
+                "y": 161.19305502639745
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/krank/Desktop/RaylibTesting/RaylibTesting/tilesets",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "openFiles": [
+        "map.tmx",
+        "Dungeon.tsx"
+    ],
+    "project": "TileMapper.tiled-project",
+    "recentFiles": [
+        "Dungeon.tsx",
+        "map.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 16,
+    "tileset.spacing": 16,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
