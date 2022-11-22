@@ -12,25 +12,31 @@
             "scaleInDock": 2,
             "scaleInEditor": 5.5
         },
+        "Grasslands.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 4
+        },
         "map.tmx": {
-            "scale": 1.9138541666666666,
+            "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 232.2538507592663,
-                "y": 161.19305502639745
+                "x": 124.83333333333331,
+                "y": 111.33333333333334
             }
         }
     },
-    "last.imagePath": "C:/Users/krank/Desktop/RaylibTesting/RaylibTesting/tilesets",
+    "last.imagePath": "C:/Users/krank/Documents/DEV/GenericEngineTesting/GenericEngineTesting/TiledData/tilesets",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
         "map.tmx",
-        "Dungeon.tsx"
+        "Dungeon.tsx",
+        "Grasslands.tsx"
     ],
     "project": "TileMapper.tiled-project",
     "recentFiles": [
+        "Grasslands.tsx",
         "Dungeon.tsx",
         "map.tmx"
     ],
