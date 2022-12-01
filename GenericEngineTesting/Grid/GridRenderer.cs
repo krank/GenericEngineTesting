@@ -1,6 +1,3 @@
-using System;
-using System.Numerics;
-using Raylib_cs;
 
 namespace GridSystem;
 
@@ -8,14 +5,12 @@ public abstract class GridRenderer
 {
   protected Grid grid;
 
-  // Tileset
-
   public GridRenderer(Grid grid)
   {
     this.grid = grid;
   }
 
-  public void RenderRectangles()
+  public void Render()
   {
     EachCoord(RenderBlockRectangle);
   }

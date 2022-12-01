@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Xml.Serialization;
 
 namespace TiledParser;
@@ -97,6 +98,14 @@ public class TiledTileset
     return tile == null ? "" : tile.Class;
   }
 
+  public T GetTileProperty<T>(int gid, string name)
+  {
+    gid -= FirstGid;
+    TsxTile tile = Tiles.Find(t => t.Id == gid);
+
+    return tile == null ? default : tile.GetProperty<T>(name);
+  }
+
   public struct TileInfo
   {
     public string image;
@@ -119,6 +128,43 @@ public class TiledTileset
 
     [XmlAttribute("class")]
     public string Class { get; set; }
+
+    [XmlIgnore]
+    public List<TsxProperty> Properties { get; set; }
+
+    [XmlElement("properties")]
+    public TsxProperties TsxFileProperties {
+      get => new() { Properties = Properties };
+      set => Properties = value.Properties;
+    }
+
+    public T GetProperty<T>(string name)
+    {
+      if (Properties == null)
+        return default;
+      
+      TsxProperty property = Properties.Find(p => p.Name == name);
+
+      if (property == null)
+        return default;
+
+      return (T)Convert.ChangeType(property.Value, typeof(T), CultureInfo.InvariantCulture);
+    }
+  }
+
+  public class TsxProperties
+  {
+    [XmlElement("property")]
+    public List<TsxProperty> Properties { get; set; }
+  }
+
+  public class TsxProperty
+  {
+    [XmlAttribute("name")]
+    public string Name { get; set; }
+
+    [XmlAttribute("value")]
+    public string Value { get; set; }
   }
 }
 

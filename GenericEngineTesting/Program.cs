@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using System.Xml.Serialization;
 using Raylib_cs;
 
 using GridSystem;
@@ -8,48 +7,26 @@ using TiledParser;
 Raylib.InitWindow(800, 600, "Generic 2d engine");
 
 string tiledMapFile = @"TiledData\map.tmx";
-string baseTiledDir = Path.GetDirectoryName(tiledMapFile);
 
+// Load the map
 TiledMapRaylib map = TiledMapRaylib.Load(tiledMapFile);
 
+// Get the texture of the first layer
+TiledMap.TiledLayer layer = map.GetLayer(1);
+Texture2D tx = map.layerTextures[layer];
 
-// TiledMap map = TiledMap.Load<TiledMapRaylib>(tiledMapFile);
-// TiledMapRaylib map = TiledMap.Load<TiledMapRaylib>(tiledMapFile);
+// Generate grid from map
+Grid grid = TiledMapGridGenerator.Generate(map, layer, 2);
 
-Console.WriteLine("hej");
+// Create a renderer for the grid
+GridRaylib.RaylibGridRenderer gridRenderer = new (grid, new Color(255, 0, 0, 128));
 
+// GridRaylib.GetHitboxRectangles(grid);
 
+grid.GetLargestSolidArea(0, 0);
 
-// TiledTileset.TileInfo info = map.Tilesets[0].GetTileInfo(2);
-
-// string tilesetImagePath = Path.Combine(baseTiledDir, info.image);
-
-// Rectangle rect = new Rectangle(
-//   info.x,
-//   info.y,
-//   info.width,
-//   info.height
-// );
-
-// Rectangle destRect = new Rectangle(0, 0, 16, 16);
-
-// // Texture2D tileImage = new Texture2D();
-
-// Image tilesetImage = new Image();
-
-// if (File.Exists(tilesetImagePath))
-// {
-//   tilesetImage = Raylib.LoadImage(tilesetImagePath);
-// }
-
-// Image tileImage = Raylib.GenImageColor(16, 16, Color.WHITE);
-
-// Raylib.ImageDraw(ref tileImage, tilesetImage, rect, destRect, Color.WHITE);
-
-// Texture2D tx = Raylib.LoadTextureFromImage(tileImage);
 
 Raylib.SetTargetFPS(60);
-
 
 while (!Raylib.WindowShouldClose())
 {
@@ -57,38 +34,19 @@ while (!Raylib.WindowShouldClose())
 
   Raylib.ClearBackground(Color.WHITE);
 
-  // Raylib.DrawTexture(tx, 0, 0, Color.WHITE);
+  Raylib.DrawTextureEx(tx, Vector2.One, 0, 2, Color.WHITE);
+  gridRenderer.Render();
 
   Raylib.EndDrawing();
 }
 
 
+// TODO: Generating an efficient Raylib collision grid from a grid
+// TODO: Make a Level class, containing a Grid and a TiledMap and maybe other things
 
-// int blockSize = 32;
+// TODO: General collider handler class? Containing "self" list of rectangles 
+//          Returning object whose collider was collided with (level, monster etc)
 
-// Grid grid = new Grid(Raylib.GetScreenWidth() / blockSize,
-//                      Raylib.GetScreenHeight() / blockSize,
-//                      Vector2.Zero, Vector2.One * blockSize);
-
-// grid.SetBlock(4, 5, new Block());
-
-
-// GridRenderer renderer = new RaylibGridRenderer(grid, Color.GREEN);
-
-// while (!Raylib.WindowShouldClose())
-// {
-//   if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
-//   {
-//     (int x, int y) = grid.GetBlockCoords(Raylib.GetMousePosition());
-//     Vector2 wPos = grid.GetBlockWorldCoord(x, y);
-//     Console.WriteLine(wPos);
-//   }
-
-//   Raylib.BeginDrawing();
-
-//   Raylib.ClearBackground(Color.WHITE);
-
-//   renderer.RenderRectangles();
-
-//   Raylib.EndDrawing();
-// }
+// TODO: Grid collision checking based on proximity
+// TODO: Grid collision checking against all collider rectangles
+// TODO: Stopping/negating collisions

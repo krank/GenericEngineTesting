@@ -26,7 +26,17 @@ public class TiledMap
   /// <summary>
   /// The total amount of single tiles available in the map
   /// </summary>
+  [XmlIgnore]
   public int TilesCount { get; private set; }
+
+  /// <summary>
+  /// The path to the tmx file
+  /// </summary>
+  [XmlIgnore]
+  public string TmxFilename { get; private set; }
+
+  [XmlIgnore]
+  public string TmxFolder => Path.GetDirectoryName(TmxFilename);
 
   /// <summary>
   /// Loads, deserializes and prepares a Tiled map, including tilsets data.
@@ -36,7 +46,6 @@ public class TiledMap
   /// <returns></returns>
   public static T Load<T>(string tmxFilename) where T : TiledMap
   {
-
     XmlSerializer tmxSerializer = new(typeof(T));
 
     using FileStream tmxFile = File.Open(tmxFilename, FileMode.Open);
@@ -54,6 +63,9 @@ public class TiledMap
 
     // Count map's total number of tiles.
     map.TilesCount = map.Tilesets.Sum(tileset => tileset.Tilecount);
+
+    // Save the filename of the deserialized file
+    map.TmxFilename = tmxFile.Name;
 
     return map;
   }
@@ -85,6 +97,12 @@ public class TiledMap
   {
     int tileId = layer.GetValue(x, y);
     return GetTilesetOf(tileId).GetTileClass(tileId);
+  }
+
+  public T GetTileProperty<T>(TiledLayer layer, int x, int y, string propertyName)
+  {
+    int tileId = layer.GetValue(x, y);
+    return GetTilesetOf(tileId).GetTileProperty<T>(tileId, propertyName);
   }
 
   public virtual TiledTileset.TileInfo GetTileInfo(TiledLayer layer, int x, int y)

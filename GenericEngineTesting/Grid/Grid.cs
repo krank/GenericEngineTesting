@@ -64,11 +64,86 @@ public class Grid
 
   public Block[] GetNeighbors(int x, int y)
   {
+    // TODO: Implement
     return null;
   }
 
-  private bool BlockWithinBounds(int x, int y)
+  public bool BlockWithinBounds(int x, int y)
   {
-    return x > 0 && x < Width && y > 0 && y < Height;
+    return x >= 0 && x < Width && y >= 0 && y < Height;
   }
+
+  public (int, int) GetLargestSolidArea(int startX, int startY)
+  {
+    // (int, int) area = (0, 0);
+
+    // Find largest _area_ of uncleared solids using x, y as starting point
+    //  1. For each possible width of area, find max height
+    //      Add heights to list
+    //  2. Find highest index * value in list
+    // Add all blocks in area to cleared pile
+
+    List<int> columnAreaHeights = new();
+
+    for (int x = startX; x < Width; x++)
+    {
+      Console.WriteLine($"--- Checking column {x} ---");
+
+      // För varje rad...
+      int y;
+      bool spanIsSolid = true;
+      for (y = startY; spanIsSolid && y < Height; y++)
+      {
+        // Check if rowspan from startx to this column, @ this row, is 100% solid
+        spanIsSolid = true;
+        for (int lX = startX; lX <= x && spanIsSolid; lX++)
+        {
+          // Check if rowspan is still solid if it includes this block
+          Block b = GetBlock(lX, y);
+          spanIsSolid = b != null && b.IsSolid;
+        }
+      }
+      y--;
+      Console.WriteLine($" Last fully solid row was y: {y}");
+
+      if (y != 0)
+      {
+        columnAreaHeights.Add(y);
+      }
+    }
+
+    // Find the biggest area
+    int bestAreaIndex = 0;
+    int bestArea = 0;
+    for (int i = 0; i < columnAreaHeights.Count; i++)
+    {
+      int area = (i + 1) * columnAreaHeights[i];
+      if (area > bestArea)
+      {
+        bestArea = area;
+        bestAreaIndex = i;
+      }
+    }
+
+    Console.WriteLine($"Best area index was {bestAreaIndex} ({(bestAreaIndex+1) * columnAreaHeights[bestAreaIndex]})");
+
+    return (0,0);
+  }
+
+  public bool IsRangeSolid(int startX, int startY, int endX, int endY)
+  {
+    for (int y = startY; y < endY; y++)
+    {
+      for (int x = startX; x < endX; x++)
+      {
+        Block block = GetBlock(x, y);
+        if (block == null || !block.IsSolid)
+        {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
 }

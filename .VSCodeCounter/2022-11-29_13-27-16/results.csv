@@ -1,0 +1,17 @@
+"filename", "language", "C#", "XML", "comment", "blank", "total"
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\GenericEngineTesting.csproj", "XML", 0, 10, 1, 4, 15
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\Grid\Block.cs", "C#", 8, 0, 1, 4, 13
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\Grid\Grid.cs", "C#", 58, 0, 1, 17, 76
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\Grid\GridRenderer.cs", "C#", 34, 0, 0, 8, 42
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\Grid\RaylibGridRenderer.cs", "C#", 29, 0, 1, 7, 37
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\Program.cs", "C#", 18, 0, 7, 16, 41
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\TiledData\Dungeon.tsx", "XML", 0, 324, 0, 1, 325
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\TiledData\Grasslands.tsx", "XML", 0, 4, 0, 1, 5
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\TiledData\map.tmx", "XML", 0, 29, 0, 1, 30
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\TiledParser\TiledMap.cs", "C#", 122, 0, 24, 41, 187
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\TiledParser\TiledMapGridGenerator.cs", "C#", 25, 0, 1, 6, 32
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\TiledParser\TiledMapRaylib.cs", "C#", 102, 0, 31, 28, 161
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\TiledParser\TiledTileset.cs", "C#", 122, 0, 2, 40, 164
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\ship.xml", "XML", 0, 6, 0, 0, 6
+"c:\Users\krank\Documents\DEV\GenericEngineTesting\GenericEngineTesting\test.tmx", "XML", 0, 1, 0, 0, 1
+"Total", "-", 518, 374, 69, 174, 1135
