@@ -75,19 +75,11 @@ public class Grid
 
   public (int, int) GetLargestSolidArea(int startX, int startY)
   {
-    // (int, int) area = (0, 0);
-
-    // Find largest _area_ of uncleared solids using x, y as starting point
-    //  1. For each possible width of area, find max height
-    //      Add heights to list
-    //  2. Find highest index * value in list
-    // Add all blocks in area to cleared pile
-
     List<int> columnAreaHeights = new();
 
     for (int x = startX; x < Width; x++)
     {
-      Console.WriteLine($"--- Checking column {x} ---");
+      // Console.WriteLine($"--- Checking column {x} ---");
 
       // För varje rad...
       int y;
@@ -100,11 +92,13 @@ public class Grid
         {
           // Check if rowspan is still solid if it includes this block
           Block b = GetBlock(lX, y);
-          spanIsSolid = b != null && b.IsSolid;
+          spanIsSolid = b != null && b.IsSolid && !b.IsDirty;
         }
       }
       y--;
-      Console.WriteLine($" Last fully solid row was y: {y}");
+      // Console.WriteLine($" Last fully solid row was y: {y}");
+
+      y -= startY;
 
       if (y != 0)
       {
@@ -125,25 +119,53 @@ public class Grid
       }
     }
 
-    Console.WriteLine($"Best area index was {bestAreaIndex} ({(bestAreaIndex+1) * columnAreaHeights[bestAreaIndex]})");
+    // Console.WriteLine($"Best area index was {bestAreaIndex} ({(bestAreaIndex+1) * columnAreaHeights[bestAreaIndex]})");
+    if (columnAreaHeights.Count == 0)
+    {
+      return (0, 0);
+    }
 
-    return (0,0);
+    return (
+      bestAreaIndex + 1,
+      columnAreaHeights[bestAreaIndex]
+      );
   }
 
-  public bool IsRangeSolid(int startX, int startY, int endX, int endY)
+  public void MarkDirty(int x, int y)
   {
-    for (int y = startY; y < endY; y++)
+    if (BlockWithinBounds(x, y))
     {
-      for (int x = startX; x < endX; x++)
+      blocks[x, y].IsDirty = true;
+    }
+  }
+
+  public void MarkClean(int x, int y)
+  {
+    if (BlockWithinBounds(x, y))
+    {
+      blocks[x, y].IsDirty = false;
+    }
+  }
+
+  public void MarkCleanAll()
+  {
+    for (int x = 0; x < Width; x++)
+    {
+      for (int y = 0; y < Height; y++)
       {
-        Block block = GetBlock(x, y);
-        if (block == null || !block.IsSolid)
-        {
-          return false;
-        }
+        MarkClean(x, y);
       }
     }
-    return true;
   }
 
+  public void MarkDirtyArea(int x, int y, int width, int height)
+  {
+    for (int lX = x; lX < x + width; lX++)
+    {
+      for (int lY = y; lY < y + height; lY++)
+      {
+        MarkDirty(lX, lY);
+      }
+    }
+  }
 }

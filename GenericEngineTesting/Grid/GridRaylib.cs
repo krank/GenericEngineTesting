@@ -18,32 +18,28 @@ public class GridRaylib
   {
     List<Rectangle> rectangles = new();
 
-    List<(int, int)> clearedPile = new();
+    grid.MarkCleanAll();
 
-    for (int y = 0; y < grid.Height; y++)
+    for (int x = 0; x < grid.Width; x++)
     {
-      for (int x = 0; x < grid.Width; x++)
+      for (int y = 0; y < grid.Height; y++)
       {
+        (int width, int height) area = grid.GetLargestSolidArea(x, y);
 
-
-        List<int> maxHeight = new();
-
-        // Go through all columns, until block is unsolid
-        int endOfRow = x;
-        while (true)
+        if (area.width > 0 && area.height > 0)
         {
-          Block block = grid.GetBlock(endOfRow, y);
+          Rectangle rect = GetRectangle(x, y, grid);
+          rect.width *= area.width;
+          rect.height *= area.height;
 
-          if (block == null || !block.IsSolid)
-          {
-            break;
-          }
-          
+          rectangles.Add(rect);
 
-          endOfRow++;
+          grid.MarkDirtyArea(x, y, area.width, area.height);
         }
+
       }
     }
+
     return rectangles;
   }
 
